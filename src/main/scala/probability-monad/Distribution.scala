@@ -34,7 +34,7 @@ trait Distribution[A] {
 
   def withFilter(pred: A => Boolean): Distribution[A] = filter(pred)
 
-  def given(pred: A => Boolean): Distribution[A] = filter(pred)
+  def `given`(pred: A => Boolean): Distribution[A] = filter(pred)
 
   def until(pred: List[A] => Boolean): Distribution[List[A]] = new Distribution[List[A]] {
     override def get = {
@@ -88,8 +88,8 @@ trait Distribution[A] {
 
   private val N = 10000
 
-  def pr(pred: A => Boolean, given: A => Boolean = (a: A) => true, samples: Int = N): Double = {
-    1.0 * this.filter(given).samplePar(samples).count(pred) / samples
+  def pr(pred: A => Boolean, `given`: A => Boolean = (a: A) => true, samples: Int = N): Double = {
+    1.0 * this.filter(`given`).samplePar(samples).count(pred) / samples
   }
 
   // NB: Expected value only makes sense for real-valued distributions. If you want to find the expected
