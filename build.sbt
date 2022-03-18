@@ -9,7 +9,7 @@ name := "probability-monad",
 
 scalaVersion := crossScalaVersions.value.last,
 
-crossScalaVersions := Seq("2.12.14", "2.13.6"),
+crossScalaVersions := Seq("2.12.14", "2.13.6", "3.1.1"),
 
 scalacOptions ++= Seq("-Xfatal-warnings", "-deprecation"),
 
