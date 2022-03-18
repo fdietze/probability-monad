@@ -89,13 +89,13 @@ trait Distribution[A] {
   private val N = 10000
 
   def pr(pred: A => Boolean, given: A => Boolean = (a: A) => true, samples: Int = N): Double = {
-    1.0 * this.filter(given).samplePar(samples).count(pred) / samples
+    1.0 * this.filter(given).sample(samples).count(pred) / samples
   }
 
   // NB: Expected value only makes sense for real-valued distributions. If you want to find the expected
   // value of a die roll, for example, you have to do die.map(_.toDouble).ev.
   def ev(implicit toDouble: A <:< Double): Double = {
-    (0 until N).par.map(_ => toDouble(self.get)).aggregate(0d)(_ + _ / N, _ + _)
+    (0 until N).map(_ => toDouble(self.get)).foldLeft(0d)(_ + _ / N)
   }
 
   def mean(implicit toDouble: A <:< Double): Double = ev
